@@ -1,0 +1,29 @@
+{#
+  DC Fabric Part 1 - underlay routing policy, leaf role.
+  Leaves accept every other fabric loopback, then advertise only
+  their own Loopback0. This stops a leaf from re-advertising one
+  spine's loopback to the other spine.
+
+  Keep this list in sync with underlay-policy-spine.j2.
+#}
+{% set fabric_loopbacks = ['10.1.1.1/32', '10.2.2.2/32', '10.11.11.11/32', '10.12.12.12/32', '10.13.13.13/32'] %}
+ip prefix-list PL-UNDERLAY-IN
+{% for p in fabric_loopbacks if p != loopback.ipv4 %}
+   seq {{ loop.index * 10 }} permit {{ p }}
+{% endfor %}
+!
+ip prefix-list PL-UNDERLAY-OUT
+   seq 10 permit {{ loopback.ipv4 }}
+!
+route-map RM-UNDERLAY-IN permit 10
+   match ip address prefix-list PL-UNDERLAY-IN
+!
+route-map RM-UNDERLAY-OUT permit 10
+   match ip address prefix-list PL-UNDERLAY-OUT
+!
+router bgp {{ bgp.as }}
+   address-family ipv4
+{% for n in bgp.neighbors if 'ipv4' in n %}
+      neighbor {{ n.ipv4 }} route-map RM-UNDERLAY-IN in
+      neighbor {{ n.ipv4 }} route-map RM-UNDERLAY-OUT out
+{% endfor %}

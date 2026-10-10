@@ -1,0 +1,32 @@
+{#
+  DC Fabric Part 1 - underlay routing policy, spine role.
+  Spines accept the leaf loopbacks, then advertise their own loopback
+  plus the leaf loopbacks. Leaves never act as transit between spines.
+
+  The prefix-lists match each loopback /32 exactly, as in the post.
+  Adding a leaf means editing this list AND the list in
+  underlay-policy-leaf.j2. That is the scaling cost discussed in the post.
+#}
+{% set leaf_loopbacks = ['10.11.11.11/32', '10.12.12.12/32', '10.13.13.13/32'] %}
+ip prefix-list PL-UNDERLAY-IN
+{% for p in leaf_loopbacks %}
+   seq {{ loop.index * 10 }} permit {{ p }}
+{% endfor %}
+!
+ip prefix-list PL-UNDERLAY-OUT
+{% for p in [loopback.ipv4] + leaf_loopbacks %}
+   seq {{ loop.index * 10 }} permit {{ p }}
+{% endfor %}
+!
+route-map RM-UNDERLAY-IN permit 10
+   match ip address prefix-list PL-UNDERLAY-IN
+!
+route-map RM-UNDERLAY-OUT permit 10
+   match ip address prefix-list PL-UNDERLAY-OUT
+!
+router bgp {{ bgp.as }}
+   address-family ipv4
+{% for n in bgp.neighbors if 'ipv4' in n %}
+      neighbor {{ n.ipv4 }} route-map RM-UNDERLAY-IN in
+      neighbor {{ n.ipv4 }} route-map RM-UNDERLAY-OUT out
+{% endfor %}

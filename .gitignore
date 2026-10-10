@@ -1,0 +1,13 @@
+# netlab / containerlab generated files
+clab.yml
+clab.yml.annotations.json
+hosts.yml
+ansible.cfg
+group_vars/
+host_vars/
+node_files/
+*.pickle
+clab-*/
+
+# Saved device configs: re-capture into outputs/ with secret hashes stripped
+config/

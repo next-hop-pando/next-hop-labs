@@ -1,0 +1,83 @@
+---
+name: ebgp-underlay
+
+provider: clab
+
+defaults:
+  device: eos
+  devices:
+    eos:
+      clab:
+        image: "ceos:4.36.2"
+
+module: [ bgp ]
+
+# Custom config applied on top of the netlab-generated base config.
+# Remove a template from a group to reproduce the earlier "before" states
+# in the post (no policy, or no ECMP).
+groups:
+  spines:
+    members: [ SP-1, SP-2 ]
+    config: [ templates/underlay-policy-spine ]
+  leaves:
+    members: [ LS-1, LS-2, LS-3 ]
+    config: [ templates/underlay-policy-leaf, templates/leaf-multipath ]
+
+nodes:
+  SP-1:
+    loopback.ipv4: 10.1.1.1/32
+    bgp.as: 65001
+
+  SP-2:
+    loopback.ipv4: 10.2.2.2/32
+    bgp.as: 65002
+
+  LS-1:
+    loopback.ipv4: 10.11.11.11/32
+    bgp.as: 65101
+
+  LS-2:
+    loopback.ipv4: 10.12.12.12/32
+    bgp.as: 65102
+
+  LS-3:
+    loopback.ipv4: 10.13.13.13/32
+    bgp.as: 65103
+
+
+links:
+  - name: SP-1 to LS-1
+    interfaces: [ SP-1, LS-1 ]
+    prefix:
+      ipv4: 10.1.11.0/31
+      allocation: sequential
+
+  - name: SP-1 to LS-2
+    interfaces: [ SP-1, LS-2 ]
+    prefix:
+      ipv4: 10.1.12.0/31
+      allocation: sequential
+
+  - name: SP-1 to LS-3
+    interfaces: [ SP-1, LS-3 ]
+    prefix:
+      ipv4: 10.1.13.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-1
+    interfaces: [ SP-2, LS-1 ]
+    prefix:
+      ipv4: 10.2.11.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-2
+    interfaces: [ SP-2, LS-2 ]
+    prefix:
+      ipv4: 10.2.12.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-3
+    interfaces: [ SP-2, LS-3 ]
+    prefix:
+      ipv4: 10.2.13.0/31
+      allocation: sequential
