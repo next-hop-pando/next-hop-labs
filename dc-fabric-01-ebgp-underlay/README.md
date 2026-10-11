@@ -1,7 +1,7 @@
 # DC Fabric Part 1: eBGP Spine-Leaf Underlay
 
 Lab for the post **DC Fabric Part 1: Building an eBGP Spine-Leaf Underlay** on next-hop.dev.
-Post: link coming soon
+Post: https://next-hop.dev/building-an-ebgp-spine-leaf-underlay/
 
 ## What the lab shows
 
