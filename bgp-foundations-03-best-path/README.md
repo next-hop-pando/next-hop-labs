@@ -22,14 +22,11 @@ Three autonomous systems with multiple paths between the two edges, used to walk
 - Two Alpine test hosts sit at the ends: host-a (192.0.2.10/24) behind r1, host-b (198.51.100.10/24) behind r7.
 - All routers are Cisco IOL. A small custom template (`templates/no-cdp.j2`) turns off CDP on Ethernet0/0.
 
-`topology-v2.svg` shows the layout.
-
 ## Files
 
 | File | Purpose |
 |---|---|
 | `topology.yml` | The lab topology. |
-| `topology-v2.svg` | Diagram of the topology. |
 | `templates/no-cdp.j2` | Custom config applied to all routers through the `cisco_routers` group. |
 
 ## How to run it
