@@ -1,0 +1,236 @@
+### LS-1 interface counters BEFORE
+Connecting to 192.168.121.103 using SSH port 22, executing show interfaces Ethernet1-2 counters
+Port                           InOctets     InUcastPkts     InMcastPkts     InBcastPkts
+Et1                              164138             683             337               4
+Et2                              137347             605             336               5
+
+Port                          OutOctets    OutUcastPkts    OutMcastPkts    OutBcastPkts
+Et1                                   0               0               0               0
+Et2                                   0               0               0               0
+### adding source addresses 172.16.10.21-28 on host-1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.21/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.22/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.23/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.24/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.25/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.26/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.27/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr add 172.16.10.28/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip -4 addr show dev eth1
+72: eth1@if71: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
+    inet 172.16.10.11/24 scope global eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.21/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.22/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.23/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.24/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.25/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.26/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.27/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+    inet 172.16.10.28/24 scope global secondary eth1
+       valid_lft forever preferred_lft forever
+### ping from 172.16.10.21
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.21 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.21: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=15.284 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=5.392 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 5.392/10.338/15.284 ms
+### ping from 172.16.10.22
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.22 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.22: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=6.014 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=3.345 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 3.345/4.679/6.014 ms
+### ping from 172.16.10.23
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.23 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.23: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=7.561 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=4.089 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 4.089/5.825/7.561 ms
+### ping from 172.16.10.24
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.24 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.24: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=8.085 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=2.686 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 2.686/5.385/8.085 ms
+### ping from 172.16.10.25
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.25 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.25: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=21.098 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=2.893 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 2.893/11.995/21.098 ms
+### ping from 172.16.10.26
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.26 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.26: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=8.499 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=3.465 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 3.465/5.982/8.499 ms
+### ping from 172.16.10.27
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.27 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.27: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=10.107 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=4.156 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 4.156/7.131/10.107 ms
+### ping from 172.16.10.28
+Connecting to container clab-l2-overlay-host-1, executing ping -c 2 -I 172.16.10.28 172.16.10.12
+PING 172.16.10.12 (172.16.10.12) from 172.16.10.28: 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=6.190 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=2.721 ms
+
+--- 172.16.10.12 ping statistics ---
+2 packets transmitted, 2 packets received, 0% packet loss
+round-trip min/avg/max = 2.721/4.455/6.190 ms
+### LS-1 interface counters AFTER
+Connecting to 192.168.121.103 using SSH port 22, executing show interfaces Ethernet1-2 counters
+Port                           InOctets     InUcastPkts     InMcastPkts     InBcastPkts
+Et1                              168689             714             339               4
+Et2                              138281             609             338               5
+
+Port                          OutOctets    OutUcastPkts    OutMcastPkts    OutBcastPkts
+Et1                                   0               0               0               0
+Et2                                   0               0               0               0
+### removing source addresses from host-1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.21/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.22/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.23/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.24/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.25/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.26/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.27/24 dev eth1
+Connecting to container clab-l2-overlay-host-1, executing ip addr del 172.16.10.28/24 dev eth1
+### LS-1 et1 (Ethernet1) udp port 4789
+reading from file outputs/20261015-1123_LS-1_et1_ecmp.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+11:23:16.853452 IP 10.255.1.11.248 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.21 > 172.16.10.12: ICMP echo request, id 244, seq 0, length 64
+11:23:16.853485 IP 10.255.1.11.248 > 10.255.1.12.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.21 > 172.16.10.12: ICMP echo request, id 244, seq 0, length 64
+11:23:16.857979 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.21 tell 172.16.10.12, length 46
+11:23:16.862653 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.21 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:16.862698 IP 10.255.1.11.6648 > 10.255.1.12.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.21 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:16.867060 IP 10.255.1.13.248 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.21: ICMP echo reply, id 244, seq 0, length 64
+11:23:17.854793 IP 10.255.1.11.248 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.21 > 172.16.10.12: ICMP echo request, id 244, seq 1, length 64
+11:23:17.856773 IP 10.255.1.13.248 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.21: ICMP echo reply, id 244, seq 1, length 64
+11:23:18.272973 IP 10.255.1.11.1016 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.22 > 172.16.10.12: ICMP echo request, id 250, seq 0, length 64
+11:23:18.275031 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.22 tell 172.16.10.12, length 46
+11:23:18.276199 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.22 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:18.277940 IP 10.255.1.13.1016 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.22: ICMP echo reply, id 250, seq 0, length 64
+11:23:19.273074 IP 10.255.1.11.1016 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.22 > 172.16.10.12: ICMP echo request, id 250, seq 1, length 64
+11:23:19.275099 IP 10.255.1.13.1016 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.22: ICMP echo reply, id 250, seq 1, length 64
+11:23:19.696738 IP 10.255.1.11.760 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.23 > 172.16.10.12: ICMP echo request, id 256, seq 0, length 64
+11:23:19.698958 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.23 tell 172.16.10.12, length 46
+11:23:19.700645 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.23 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:19.702873 IP 10.255.1.13.760 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.23: ICMP echo reply, id 256, seq 0, length 64
+11:23:20.697661 IP 10.255.1.11.760 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.23 > 172.16.10.12: ICMP echo request, id 256, seq 1, length 64
+11:23:20.700068 IP 10.255.1.13.760 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.23: ICMP echo reply, id 256, seq 1, length 64
+11:23:21.112496 IP 10.255.1.11.3576 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.24 > 172.16.10.12: ICMP echo request, id 262, seq 0, length 64
+11:23:21.114767 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.24 tell 172.16.10.12, length 46
+11:23:21.116962 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.24 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:21.119293 IP 10.255.1.13.3576 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.24: ICMP echo reply, id 262, seq 0, length 64
+11:23:21.946186 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:23:21.948117 IP 10.255.1.13.6648 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 46
+11:23:22.112517 IP 10.255.1.11.3576 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.24 > 172.16.10.12: ICMP echo request, id 262, seq 1, length 64
+11:23:22.114061 IP 10.255.1.13.3576 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.24: ICMP echo reply, id 262, seq 1, length 64
+11:23:22.512797 IP 10.255.1.11.3320 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.25 > 172.16.10.12: ICMP echo request, id 268, seq 0, length 64
+11:23:22.522272 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.25 tell 172.16.10.12, length 46
+11:23:22.525358 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.25 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:22.530039 IP 10.255.1.13.3320 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.25: ICMP echo reply, id 268, seq 0, length 64
+11:23:23.514194 IP 10.255.1.11.3320 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.25 > 172.16.10.12: ICMP echo request, id 268, seq 1, length 64
+11:23:23.515947 IP 10.255.1.13.3320 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.25: ICMP echo reply, id 268, seq 1, length 64
+11:23:23.912985 IP 10.255.1.11.4088 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.26 > 172.16.10.12: ICMP echo request, id 274, seq 0, length 64
+11:23:23.915426 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.26 tell 172.16.10.12, length 46
+11:23:23.917403 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.26 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:23.920316 IP 10.255.1.13.4088 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.26: ICMP echo reply, id 274, seq 0, length 64
+11:23:24.913034 IP 10.255.1.11.4088 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.26 > 172.16.10.12: ICMP echo request, id 274, seq 1, length 64
+11:23:24.915159 IP 10.255.1.13.4088 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.26: ICMP echo reply, id 274, seq 1, length 64
+11:23:25.360368 IP 10.255.1.11.3832 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.27 > 172.16.10.12: ICMP echo request, id 280, seq 0, length 64
+11:23:25.362154 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.27 tell 172.16.10.12, length 46
+11:23:25.363697 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.27 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:25.368809 IP 10.255.1.13.3832 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.27: ICMP echo reply, id 280, seq 0, length 64
+11:23:26.360540 IP 10.255.1.11.3832 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.27 > 172.16.10.12: ICMP echo request, id 280, seq 1, length 64
+11:23:26.362907 IP 10.255.1.13.3832 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.27: ICMP echo reply, id 280, seq 1, length 64
+11:23:26.792896 IP 10.255.1.11.2552 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.28 > 172.16.10.12: ICMP echo request, id 286, seq 0, length 64
+11:23:26.794477 IP 10.255.1.13.64122 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Request who-has 172.16.10.28 tell 172.16.10.12, length 46
+11:23:26.795570 IP 10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+ARP, Reply 172.16.10.28 is-at aa:c1:ab:47:1d:fb, length 46
+11:23:26.797829 IP 10.255.1.13.2552 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.28: ICMP echo reply, id 286, seq 0, length 64
+11:23:27.792995 IP 10.255.1.11.2552 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.28 > 172.16.10.12: ICMP echo request, id 286, seq 1, length 64
+11:23:27.794577 IP 10.255.1.13.2552 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+IP 172.16.10.12 > 172.16.10.28: ICMP echo reply, id 286, seq 1, length 64
+### LS-1 et2 (Ethernet2) udp port 4789
+reading from file outputs/20261015-1123_LS-1_et2_ecmp.pcap, link-type EN10MB (Ethernet), snapshot length 262144

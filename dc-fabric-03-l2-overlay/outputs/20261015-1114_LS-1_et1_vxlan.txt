@@ -1,0 +1,41 @@
+### LS-1 et1 (Ethernet1) udp port 4789
+reading from file outputs/20261015-1114_LS-1_et1_vxlan.pcap, link-type EN10MB (Ethernet), snapshot length 262144
+11:14:04.812810 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 110: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 96)
+    10.255.1.11.58242 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:14:04.812838 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 110: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 96)
+    10.255.1.11.58242 > 10.255.1.12.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:14:04.817064 ca:f0:00:01:00:01 > ca:f0:00:03:00:01, ethertype IPv4 (0x0800), length 110: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 96)
+    10.255.1.13.6648 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 46
+11:14:04.818295 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.11.7928 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 13466, offset 0, flags [DF], proto ICMP (1), length 84)
+    172.16.10.11 > 172.16.10.12: ICMP echo request, id 184, seq 0, length 64
+11:14:04.820470 ca:f0:00:01:00:01 > ca:f0:00:03:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.13.7928 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 39074, offset 0, flags [none], proto ICMP (1), length 84)
+    172.16.10.12 > 172.16.10.11: ICMP echo reply, id 184, seq 0, length 64
+11:14:05.812310 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.11.7928 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 13579, offset 0, flags [DF], proto ICMP (1), length 84)
+    172.16.10.11 > 172.16.10.12: ICMP echo request, id 184, seq 1, length 64
+11:14:05.813945 ca:f0:00:01:00:01 > ca:f0:00:03:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.13.7928 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 39216, offset 0, flags [none], proto ICMP (1), length 84)
+    172.16.10.12 > 172.16.10.11: ICMP echo reply, id 184, seq 1, length 64
+11:14:06.812438 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.11.7928 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 14418, offset 0, flags [DF], proto ICMP (1), length 84)
+    172.16.10.11 > 172.16.10.12: ICMP echo request, id 184, seq 2, length 64
+11:14:06.814089 ca:f0:00:01:00:01 > ca:f0:00:03:00:01, ethertype IPv4 (0x0800), length 148: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 134)
+    10.255.1.13.7928 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype IPv4 (0x0800), length 98: (tos 0x0, ttl 64, id 39697, offset 0, flags [none], proto ICMP (1), length 84)
+    172.16.10.12 > 172.16.10.11: ICMP echo reply, id 184, seq 2, length 64
+11:14:10.011579 ca:f0:00:01:00:01 > ca:f0:00:03:00:01, ethertype IPv4 (0x0800), length 110: (tos 0x0, ttl 63, id 0, offset 0, flags [DF], proto UDP (17), length 96)
+    10.255.1.13.6648 > 10.255.1.11.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Request who-has 172.16.10.11 tell 172.16.10.12, length 46
+11:14:10.013075 ca:f0:00:03:00:01 > ca:f0:00:01:00:01, ethertype IPv4 (0x0800), length 110: (tos 0x0, ttl 64, id 0, offset 0, flags [DF], proto UDP (17), length 96)
+    10.255.1.11.6648 > 10.255.1.13.4789: VXLAN, flags [I] (0x08), vni 10010
+aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype ARP (0x0806), length 60: Ethernet (len 6), IPv4 (len 4), Reply 172.16.10.11 is-at aa:c1:ab:47:1d:fb, length 46

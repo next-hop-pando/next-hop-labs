@@ -1,0 +1,10 @@
+show bgp evpn route-type mac-ip detail
+BGP routing table information for VRF default
+Router identifier 10.11.11.11, local AS number 65101
+BGP routing table entry for mac-ip aac1.ab47.1dfb, Route Distinguisher: 10.11.11.11:10
+ Paths: 1 available
+  Local
+    - from - (0.0.0.0)
+      Origin IGP, metric -, localpref -, weight 0, tag 0, valid, local, best
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010 ESI: 0000:0000:0000:0000:0000

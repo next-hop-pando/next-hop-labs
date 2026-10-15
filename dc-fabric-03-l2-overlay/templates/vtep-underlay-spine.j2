@@ -1,0 +1,11 @@
+{#
+  DC Fabric Part 3 - VTEP block in the underlay, spine role.
+  Part 1's prefix-lists permit exact Lo0 /32s only. VTEP loopbacks
+  (Loopback1) come from 10.255.1.0/24, so one range entry lets the
+  spines accept and pass on every leaf VTEP. A new leaf touches no spine.
+#}
+ip prefix-list PL-UNDERLAY-IN
+   seq 100 permit 10.255.1.0/24 ge 32
+!
+ip prefix-list PL-UNDERLAY-OUT
+   seq 100 permit 10.255.1.0/24 ge 32

@@ -1,0 +1,2 @@
+### LS-1 et2 (Ethernet2) udp port 4789
+reading from file outputs/20261015-1114_LS-1_et2_vxlan.pcap, link-type EN10MB (Ethernet), snapshot length 262144

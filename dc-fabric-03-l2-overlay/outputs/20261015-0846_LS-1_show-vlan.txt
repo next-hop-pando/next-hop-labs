@@ -1,0 +1,6 @@
+show vlan
+VLAN  Name                             Status    Ports                          
+----- -------------------------------- --------- -------------------------------
+1     default                          active                                   
+10    tenant                           active    Et3, Cpu                       
+

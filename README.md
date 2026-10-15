@@ -25,7 +25,7 @@ Each lab folder has its own README with what the lab shows and how to run it.
 ```bash
 cd dc-fabric-01-ebgp-underlay
 netlab up
-netlab connect LS-1 "show ip bgp summary"
+netlab connect LS-1 show ip bgp summary
 netlab down
 ```
 

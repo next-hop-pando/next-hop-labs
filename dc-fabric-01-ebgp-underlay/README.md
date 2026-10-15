@@ -43,7 +43,7 @@ Requirements: netlab with the containerlab provider, and the Arista cEOS image i
 source ~/netlab-venv/bin/activate
 cd dc-fabric-01-ebgp-underlay
 netlab up                      # published lab
-netlab connect LS-1 "show ip route"
+netlab connect LS-1 show ip route
 netlab down
 ```
 

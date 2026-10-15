@@ -1,0 +1,44 @@
+show running-config section router bgp
+router bgp 65001
+   router-id 10.1.1.1
+   no bgp default ipv4-unicast
+   bgp advertise-inactive
+   neighbor EVPN peer group
+   neighbor EVPN update-source Loopback0
+   neighbor EVPN ebgp-multihop 3
+   neighbor 10.1.11.1 remote-as 65101
+   neighbor 10.1.11.1 description LS-1
+   neighbor 10.1.11.1 send-community standard large
+   neighbor 10.1.12.1 remote-as 65102
+   neighbor 10.1.12.1 description LS-2
+   neighbor 10.1.12.1 send-community standard large
+   neighbor 10.1.13.1 remote-as 65103
+   neighbor 10.1.13.1 description LS-3
+   neighbor 10.1.13.1 send-community standard large
+   neighbor 10.11.11.11 peer group EVPN
+   neighbor 10.11.11.11 remote-as 65101
+   neighbor 10.11.11.11 description LS-1-EVPN
+   neighbor 10.12.12.12 peer group EVPN
+   neighbor 10.12.12.12 remote-as 65102
+   neighbor 10.12.12.12 description LS-2-EVPN
+   neighbor 10.13.13.13 peer group EVPN
+   neighbor 10.13.13.13 remote-as 65103
+   neighbor 10.13.13.13 description LS-3-EVPN
+   !
+   address-family evpn
+      neighbor EVPN activate
+   !
+   address-family ipv4
+      neighbor 10.1.11.1 activate
+      neighbor 10.1.11.1 route-map RM-UNDERLAY-IN in
+      neighbor 10.1.11.1 route-map RM-UNDERLAY-OUT out
+      neighbor 10.1.11.1 next-hop-self
+      neighbor 10.1.12.1 activate
+      neighbor 10.1.12.1 route-map RM-UNDERLAY-IN in
+      neighbor 10.1.12.1 route-map RM-UNDERLAY-OUT out
+      neighbor 10.1.12.1 next-hop-self
+      neighbor 10.1.13.1 activate
+      neighbor 10.1.13.1 route-map RM-UNDERLAY-IN in
+      neighbor 10.1.13.1 route-map RM-UNDERLAY-OUT out
+      neighbor 10.1.13.1 next-hop-self
+      network 10.1.1.1/32

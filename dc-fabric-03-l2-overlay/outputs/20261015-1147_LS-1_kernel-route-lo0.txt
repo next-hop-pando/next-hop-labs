@@ -1,0 +1,2 @@
+sudo ip netns exec clab-l2-overlay-LS-1 ip route show 10.13.13.13
+10.13.13.13 via 10.1.11.0 dev et1 proto gated 

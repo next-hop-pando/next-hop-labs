@@ -1,0 +1,8 @@
+ping 10.255.1.13 source 10.255.1.11 size 9000 df-bit repeat 2
+PING 10.255.1.13 (10.255.1.13) from 10.255.1.11 : 8972(9000) bytes of data.
+8980 bytes from 10.255.1.13: icmp_seq=1 ttl=63 time=1.04 ms
+8980 bytes from 10.255.1.13: icmp_seq=2 ttl=63 time=0.675 ms
+
+--- 10.255.1.13 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 1ms
+rtt min/avg/max/mdev = 0.675/0.856/1.037/0.181 ms, ipg/ewma 1.098/0.991 ms

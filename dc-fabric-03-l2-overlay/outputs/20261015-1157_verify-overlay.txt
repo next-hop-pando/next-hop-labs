@@ -1,0 +1,233 @@
+# Part 3 verification, Thu Oct 15 11:57:13 AM MDT 2026
+
+### SP-1: show ip bgp summary
+Connecting to 192.168.121.101 using SSH port 22, executing show ip bgp summary
+BGP summary information for VRF default
+Router identifier 10.1.1.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor  V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  LS-1                     10.1.11.1 4 65101             15        13    0    0 00:03:52 Estab   2      2      5
+  LS-2                     10.1.12.1 4 65102             16        16    0    0 00:03:52 Estab   2      2      5
+  LS-3                     10.1.13.1 4 65103             14        15    0    0 00:03:52 Estab   2      2      5
+
+### SP-1: show bgp evpn summary
+Connecting to 192.168.121.101 using SSH port 22, executing show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 10.1.1.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  LS-1-EVPN                10.11.11.11 4 65101              8         9    0    0 00:03:12 Estab   1      1      2
+  LS-2-EVPN                10.12.12.12 4 65102              8         9    0    0 00:03:12 Estab   1      1      2
+  LS-3-EVPN                10.13.13.13 4 65103              8        10    0    0 00:03:13 Estab   1      1      2
+
+### SP-2: show bgp evpn summary
+Connecting to 192.168.121.102 using SSH port 22, executing show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 10.2.2.2, local AS number 65002
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  LS-1-EVPN                10.11.11.11 4 65101              8         9    0    0 00:03:13 Estab   1      1      2
+  LS-2-EVPN                10.12.12.12 4 65102              8         9    0    0 00:03:13 Estab   1      1      2
+  LS-3-EVPN                10.13.13.13 4 65103              8         9    0    0 00:03:14 Estab   1      1      2
+
+### LS-1: show ip interface brief
+Connecting to 192.168.121.103 using SSH port 22, executing show ip interface brief
+                                                                        Address
+Interface      IP Address             Status     Protocol         MTU   Owner  
+-------------- ---------------------- ---------- ------------ --------- -------
+Ethernet1      10.1.11.1/31           up         up              9194          
+Ethernet2      10.2.11.1/31           up         up              9194          
+Loopback0      10.11.11.11/32         up         up             65535          
+Loopback1      10.255.1.11/32         up         up             65535          
+Management0    192.168.121.103/24     up         up              1500          
+Vlan10         unassigned             up         up              9194          
+
+
+### LS-1: show ip route 10.255.1.13
+Connecting to 192.168.121.103 using SSH port 22, executing show ip route 10.255.1.13
+
+VRF: default
+Source Codes:
+       C - connected, S - static, K - kernel,
+       O - OSPF, O IA - OSPF inter area, O E1 - OSPF external type 1,
+       O E2 - OSPF external type 2, O N1 - OSPF NSSA external type 1,
+       O N2 - OSPF NSSA external type2, O3 - OSPFv3,
+       O3 IA - OSPFv3 inter area, O3 E1 - OSPFv3 external type 1,
+       O3 E2 - OSPFv3 external type 2,
+       O3 N1 - OSPFv3 NSSA external type 1,
+       O3 N2 - OSPFv3 NSSA external type2, B - Other BGP Routes,
+       B I - iBGP, B E - eBGP, R - RIP, I L1 - IS-IS level 1,
+       I L2 - IS-IS level 2, A B - BGP Aggregate,
+       A O - OSPF Summary, NG - Nexthop Group Static Route,
+       V - VXLAN Control Service, M - Martian,
+       DH - DHCP client installed default route,
+       DP - Dynamic Policy Route, L - VRF Leaked,
+       G  - gRIBI, RC - Route Cache Route,
+       CL - CBF Leaked Route
+
+ B E      10.255.1.13/32 [200/0]
+           via 10.1.11.0, Ethernet1
+           via 10.2.11.0, Ethernet2
+
+
+### LS-1: ping 10.255.1.13 source 10.255.1.11 size 9000 df-bit repeat 2
+Connecting to 192.168.121.103 using SSH port 22, executing ping 10.255.1.13 source 10.255.1.11 size 9000 df-bit repeat 2
+PING 10.255.1.13 (10.255.1.13) from 10.255.1.11 : 8972(9000) bytes of data.
+8980 bytes from 10.255.1.13: icmp_seq=1 ttl=63 time=4.29 ms
+8980 bytes from 10.255.1.13: icmp_seq=2 ttl=63 time=0.695 ms
+
+--- 10.255.1.13 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 4ms
+rtt min/avg/max/mdev = 0.695/2.493/4.292/1.798 ms, ipg/ewma 4.360/3.842 ms
+
+### LS-1: show bgp evpn summary
+Connecting to 192.168.121.103 using SSH port 22, executing show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 10.11.11.11, local AS number 65101
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  SP-1-EVPN                10.1.1.1 4 65001              9         8    0    0 00:03:16 Estab   2      2      1
+  SP-2-EVPN                10.2.2.2 4 65002              9         8    0    0 00:03:17 Estab   2      2      1
+
+### LS-1: show interfaces Vxlan1
+Connecting to 192.168.121.103 using SSH port 22, executing show interfaces Vxlan1
+Vxlan1 is up, line protocol is up (connected)
+  Hardware is Vxlan
+  Source interface is Loopback1 and is active with 10.255.1.11
+  Listening on UDP port 4789
+  Replication/Flood Mode is headend with Flood List Source: EVPN
+  Remote MAC learning via EVPN
+  VNI mapping to VLANs
+  Static VLAN to VNI mapping is 
+    [10, 10010]      
+  Note: All Dynamic VLANs used by VCS are internal VLANs.
+        Use 'show vxlan vni' for details.
+  Static VRF to VNI mapping is not configured
+  Headend replication flood vtep list is:
+    10 10.255.1.13     10.255.1.12    
+  Shared Router MAC is 0000.0000.0000
+
+### host-1: ping -c 3 172.16.10.12
+Connecting to container clab-l2-overlay-host-1, executing ping -c 3 172.16.10.12
+PING 172.16.10.12 (172.16.10.12): 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=19.750 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=8.494 ms
+64 bytes from 172.16.10.12: seq=2 ttl=64 time=3.179 ms
+
+--- 172.16.10.12 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 3.179/10.474/19.750 ms
+
+### LS-3: show vxlan vtep
+Connecting to 192.168.121.105 using SSH port 22, executing show vxlan vtep
+Remote VTEPS for Vxlan1:
+
+VTEP              Tunnel Type(s)
+----------------- --------------
+10.255.1.11       unicast, flood
+10.255.1.12       flood         
+
+Total number of remote VTEPS:  2
+
+### LS-3: show vxlan flood vtep
+Connecting to 192.168.121.105 using SSH port 22, executing show vxlan flood vtep
+          VXLAN Flood VTEP Table
+--------------------------------------------------------------------------------
+
+VLANS                            Ip Address
+-----------------------------   ------------------------------------------------
+10                              10.255.1.11     10.255.1.12    
+
+### LS-3: show mac address-table vlan 10
+Connecting to 192.168.121.105 using SSH port 22, executing show mac address-table vlan 10
+          Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports      Moves   Last Move
+----    -----------       ----        -----      -----   ---------
+  10    aac1.abc2.70e8    DYNAMIC     Vx1        1       0:00:04 ago
+  10    aac1.abdb.59b3    DYNAMIC     Et3        1       0:00:04 ago
+Total Mac Addresses for this criterion: 2
+
+          Multicast Mac Address Table
+------------------------------------------------------------------
+
+Vlan    Mac Address       Type        Ports
+----    -----------       ----        -----
+Total Mac Addresses for this criterion: 0
+
+### LS-3: show bgp evpn instance
+Connecting to 192.168.121.105 using SSH port 22, executing show bgp evpn instance
+EVPN instance: VLAN 10
+  Route distinguisher: 10.13.13.13:10
+  Route target import: Route-Target-AS:10010:10010
+  Route target export: Route-Target-AS:10010:10010
+  Service interface: VLAN-based
+  Local VXLAN IP address: 10.255.1.13
+  VXLAN: enabled
+  MPLS: disabled
+
+### LS-3: show bgp evpn route-type imet detail
+Connecting to 192.168.121.105 using SSH port 22, executing show bgp evpn route-type imet detail
+BGP routing table information for VRF default
+Router identifier 10.13.13.13, local AS number 65103
+BGP routing table entry for imet 10.255.1.11, Route Distinguisher: 10.11.11.11:10
+ Paths: 2 available
+  65002 65101
+    10.255.1.11 from 10.2.2.2 (10.2.2.2)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP head, ECMP, best, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010
+      PMSI Tunnel: Ingress Replication, VNI: 10010, Leaf Information Required: false, Tunnel ID: 10.255.1.11
+  65001 65101
+    10.255.1.11 from 10.1.1.1 (10.1.1.1)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010
+      PMSI Tunnel: Ingress Replication, VNI: 10010, Leaf Information Required: false, Tunnel ID: 10.255.1.11
+BGP routing table entry for imet 10.255.1.12, Route Distinguisher: 10.12.12.12:10
+ Paths: 2 available
+  65001 65102
+    10.255.1.12 from 10.1.1.1 (10.1.1.1)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP head, ECMP, best, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010
+      PMSI Tunnel: Ingress Replication, VNI: 10010, Leaf Information Required: false, Tunnel ID: 10.255.1.12
+  65002 65102
+    10.255.1.12 from 10.2.2.2 (10.2.2.2)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010
+      PMSI Tunnel: Ingress Replication, VNI: 10010, Leaf Information Required: false, Tunnel ID: 10.255.1.12
+BGP routing table entry for imet 10.255.1.13, Route Distinguisher: 10.13.13.13:10
+ Paths: 1 available
+  Local
+    - from - (0.0.0.0)
+      Origin IGP, metric -, localpref -, weight 0, tag 0, valid, local, best
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010
+      PMSI Tunnel: Ingress Replication, VNI: 10010, Leaf Information Required: false, Tunnel ID: 10.255.1.13
+
+### LS-3: show bgp evpn route-type mac-ip detail
+Connecting to 192.168.121.105 using SSH port 22, executing show bgp evpn route-type mac-ip detail
+BGP routing table information for VRF default
+Router identifier 10.13.13.13, local AS number 65103
+BGP routing table entry for mac-ip aac1.abc2.70e8, Route Distinguisher: 10.11.11.11:10
+ Paths: 2 available
+  65001 65101
+    10.255.1.11 from 10.1.1.1 (10.1.1.1)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP head, ECMP, best, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010 ESI: 0000:0000:0000:0000:0000
+  65002 65101
+    10.255.1.11 from 10.2.2.2 (10.2.2.2)
+      Origin IGP, metric -, localpref 100, weight 0, tag 0, valid, external, ECMP, ECMP contributor
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010 ESI: 0000:0000:0000:0000:0000
+BGP routing table entry for mac-ip aac1.abdb.59b3, Route Distinguisher: 10.13.13.13:10
+ Paths: 1 available
+  Local
+    - from - (0.0.0.0)
+      Origin IGP, metric -, localpref -, weight 0, tag 0, valid, local, best
+      Extended Community: Route-Target-AS:10010:10010 TunnelEncap:tunnelTypeVxlan
+      VNI: 10010 ESI: 0000:0000:0000:0000:0000

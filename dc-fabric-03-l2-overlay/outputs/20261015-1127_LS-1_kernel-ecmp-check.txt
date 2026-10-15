@@ -1,0 +1,4 @@
+### kernel route to 10.255.1.13 in LS-1
+10.255.1.13 via 10.1.11.0 dev et1 proto gated 
+### multipath hash policy in LS-1 (0 = L3 only, 1 = L4 incl. ports)
+net.ipv4.fib_multipath_hash_policy = 0

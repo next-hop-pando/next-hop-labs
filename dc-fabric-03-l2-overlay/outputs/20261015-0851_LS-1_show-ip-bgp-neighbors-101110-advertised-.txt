@@ -1,0 +1,13 @@
+show ip bgp neighbors 10.1.11.0 advertised-routes
+BGP routing table information for VRF default
+Router identifier 10.11.11.11, local AS number 65101
+Route status codes: s - suppressed contributor, * - valid, > - active, E - ECMP head, e - ECMP
+                    S - Stale, c - Contributing to ECMP, b - backup, L - labeled-unicast, q - Queued for advertisement
+                    % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+RPKI AS Path Validation codes: AV - valid, AI - invalid, AU - unknown
+RPKI Origin Validation codes: V - valid, I - invalid, U - unknown
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+            Network                Next Hop              Metric  AIGP       LocPref Weight  Path
+ * >        10.11.11.11/32         10.1.11.1             -       -          -       -       65101 i

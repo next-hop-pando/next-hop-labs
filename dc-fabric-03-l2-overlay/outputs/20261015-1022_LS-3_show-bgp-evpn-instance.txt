@@ -1,0 +1,9 @@
+show bgp evpn instance
+EVPN instance: VLAN 10
+  Route distinguisher: 10.13.13.13:10
+  Route target import: Route-Target-AS:10010:10010
+  Route target export: Route-Target-AS:10010:10010
+  Service interface: VLAN-based
+  Local VXLAN IP address: 10.255.1.13
+  VXLAN: enabled
+  MPLS: disabled

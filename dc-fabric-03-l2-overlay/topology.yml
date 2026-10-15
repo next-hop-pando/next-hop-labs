@@ -1,0 +1,122 @@
+---
+name: l2-overlay
+
+provider: clab
+
+defaults:
+  device: eos
+  devices:
+    eos:
+      clab:
+        image: "ceos:4.36.2"
+
+module: [ bgp, vlan ]
+
+# Part 3: one Layer 2 segment for host-1 and host-2. Bridge mode means
+# no SVI or gateway on the leaves (routing between subnets is Part 4).
+# The overlay (Loopback1, EVPN sessions, VXLAN) comes from the Part 3
+# templates below. Remove them from the groups to build it by hand.
+vlans:
+  tenant:
+    id: 10
+    mode: bridge
+    prefix:
+      ipv4: 172.16.10.0/24
+
+# Custom config applied on top of the netlab-generated base config.
+# MTU is set on the switches only: hosts stay at 1500, so a full host
+# frame plus 50 bytes of VXLAN fits easily. netlab caps EOS at 9194.
+groups:
+  spines:
+    members: [ SP-1, SP-2 ]
+    mtu: 9194
+    config:
+      - templates/underlay-policy-spine   # Part 1
+      - templates/vtep-underlay-spine     # Part 3: VTEP block
+      - templates/evpn-overlay-spine      # Part 3: EVPN sessions
+  leaves:
+    members: [ LS-1, LS-2, LS-3 ]
+    mtu: 9194
+    config:
+      - templates/underlay-policy-leaf    # Part 1
+      - templates/leaf-multipath          # Part 1
+      - templates/vtep-loopback-leaf      # Part 3: Loopback1 + policy
+      - templates/evpn-overlay-leaf       # Part 3: EVPN sessions
+      - templates/vxlan-l2vni-leaf        # Part 3: VLAN 10 <-> VNI 10010
+
+nodes:
+  SP-1:
+    loopback.ipv4: 10.1.1.1/32
+    bgp.as: 65001
+
+  SP-2:
+    loopback.ipv4: 10.2.2.2/32
+    bgp.as: 65002
+
+  LS-1:
+    loopback.ipv4: 10.11.11.11/32
+    bgp.as: 65101
+
+  LS-2:
+    loopback.ipv4: 10.12.12.12/32
+    bgp.as: 65102
+
+  LS-3:
+    loopback.ipv4: 10.13.13.13/32
+    bgp.as: 65103
+
+  host-1:
+    device: linux
+
+  host-2:
+    device: linux
+
+
+links:
+  - name: SP-1 to LS-1
+    interfaces: [ SP-1, LS-1 ]
+    prefix:
+      ipv4: 10.1.11.0/31
+      allocation: sequential
+
+  - name: SP-1 to LS-2
+    interfaces: [ SP-1, LS-2 ]
+    prefix:
+      ipv4: 10.1.12.0/31
+      allocation: sequential
+
+  - name: SP-1 to LS-3
+    interfaces: [ SP-1, LS-3 ]
+    prefix:
+      ipv4: 10.1.13.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-1
+    interfaces: [ SP-2, LS-1 ]
+    prefix:
+      ipv4: 10.2.11.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-2
+    interfaces: [ SP-2, LS-2 ]
+    prefix:
+      ipv4: 10.2.12.0/31
+      allocation: sequential
+
+  - name: SP-2 to LS-3
+    interfaces: [ SP-2, LS-3 ]
+    prefix:
+      ipv4: 10.2.13.0/31
+      allocation: sequential
+
+  - name: LS-1 to host-1
+    LS-1: {}
+    host-1:
+      ipv4: 172.16.10.11/24
+    vlan.access: tenant
+
+  - name: LS-3 to host-2
+    LS-3: {}
+    host-2:
+      ipv4: 172.16.10.12/24
+    vlan.access: tenant

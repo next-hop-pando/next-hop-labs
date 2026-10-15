@@ -1,0 +1,8 @@
+show bgp evpn summary
+BGP summary information for VRF default
+Router identifier 10.1.1.1, local AS number 65001
+Neighbor Status Codes: m - Under maintenance
+  Description              Neighbor    V AS           MsgRcvd   MsgSent  InQ OutQ  Up/Down State   PfxRcd PfxAcc PfxAdv
+  LS-1-EVPN                10.11.11.11 4 65101             21        19    0    0 00:12:19 Estab   4      4      2
+  LS-2-EVPN                10.12.12.12 4 65102             19        20    0    0 00:12:08 Estab   2      2      3
+  LS-3-EVPN                10.13.13.13 4 65103             19        19    0    0 00:11:51 Estab   3      3      3

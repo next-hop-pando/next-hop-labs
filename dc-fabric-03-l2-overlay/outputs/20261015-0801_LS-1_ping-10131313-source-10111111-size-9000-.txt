@@ -1,0 +1,8 @@
+ping 10.13.13.13 source 10.11.11.11 size 9000 df-bit repeat 2
+PING 10.13.13.13 (10.13.13.13) from 10.11.11.11 : 8972(9000) bytes of data.
+8980 bytes from 10.13.13.13: icmp_seq=1 ttl=63 time=1.42 ms
+8980 bytes from 10.13.13.13: icmp_seq=2 ttl=63 time=0.640 ms
+
+--- 10.13.13.13 ping statistics ---
+2 packets transmitted, 2 received, 0% packet loss, time 3ms
+rtt min/avg/max/mdev = 0.640/1.030/1.420/0.390 ms, ipg/ewma 2.790/1.322 ms

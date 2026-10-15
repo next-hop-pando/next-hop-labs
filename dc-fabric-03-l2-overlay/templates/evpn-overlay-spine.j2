@@ -1,0 +1,26 @@
+{#
+  DC Fabric Part 3 - EVPN overlay sessions, spine role.
+  eBGP between loopbacks (Lo0), EVPN address family only (netlab sets
+  'no bgp default ipv4-unicast'). Extended communities carry the route
+  target and the VXLAN encapsulation; without them nothing is imported.
+  next-hop-unchanged keeps the leaf VTEP as the next hop (cEOS 4.36.2F
+  already did this without it; kept to match Arista's design).
+#}
+{% set leaves = [
+     {'name': 'LS-1', 'lo0': '10.11.11.11', 'as': 65101},
+     {'name': 'LS-2', 'lo0': '10.12.12.12', 'as': 65102},
+     {'name': 'LS-3', 'lo0': '10.13.13.13', 'as': 65103} ] %}
+router bgp {{ bgp.as }}
+   neighbor EVPN peer group
+   neighbor EVPN next-hop-unchanged
+   neighbor EVPN update-source Loopback0
+   neighbor EVPN ebgp-multihop 3
+   neighbor EVPN send-community extended
+{% for l in leaves %}
+   neighbor {{ l.lo0 }} peer group EVPN
+   neighbor {{ l.lo0 }} remote-as {{ l.as }}
+   neighbor {{ l.lo0 }} description {{ l.name }}-EVPN
+{% endfor %}
+   !
+   address-family evpn
+      neighbor EVPN activate

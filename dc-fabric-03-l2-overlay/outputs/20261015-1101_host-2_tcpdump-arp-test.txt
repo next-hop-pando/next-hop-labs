@@ -1,0 +1,50 @@
+### tcpdump on host-2 eth1 (background, 40s)
+### round 1: host-1 neighbors before flush
+Connecting to container clab-l2-overlay-host-1, executing ip neigh show dev eth1
+172.16.10.12 lladdr aa:c1:ab:be:04:fa used 0/0/0 probes 1 STALE
+Connecting to container clab-l2-overlay-host-1, executing ip neigh flush dev eth1
+172.16.10.12 lladdr aa:c1:ab:be:04:fa used 0/0/0 probes 1 STALE
+
+*** Round 1, deleting 1 entries ***
+*** Flush is complete after 1 round(s) ***
+### round 1: after flush
+Connecting to container clab-l2-overlay-host-1, executing ip neigh show dev eth1
+### round 1: ping
+Connecting to container clab-l2-overlay-host-1, executing ping -c 1 172.16.10.12
+PING 172.16.10.12 (172.16.10.12): 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=10.283 ms
+
+--- 172.16.10.12 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 10.283/10.283/10.283 ms
+### round 2: host-1 neighbors before flush
+Connecting to container clab-l2-overlay-host-1, executing ip neigh show dev eth1
+172.16.10.12 lladdr aa:c1:ab:be:04:fa ref 1 used 0/0/0 probes 4 REACHABLE
+Connecting to container clab-l2-overlay-host-1, executing ip neigh flush dev eth1
+172.16.10.12 lladdr aa:c1:ab:be:04:fa ref 1 used 0/0/0 probes 4 REACHABLE
+
+*** Round 1, deleting 1 entries ***
+*** Flush is complete after 1 round(s) ***
+### round 2: after flush
+Connecting to container clab-l2-overlay-host-1, executing ip neigh show dev eth1
+### round 2: ping
+Connecting to container clab-l2-overlay-host-1, executing ping -c 1 172.16.10.12
+PING 172.16.10.12 (172.16.10.12): 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=20.654 ms
+
+--- 172.16.10.12 ping statistics ---
+1 packets transmitted, 1 packets received, 0% packet loss
+round-trip min/avg/max = 20.654/20.654/20.654 ms
+### tcpdump output
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth1, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:01:57.890945 aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:01:57.890954 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 28
+11:02:02.431873 aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:02:02.431881 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 28
+11:02:02.969311 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Request who-has 172.16.10.11 tell 172.16.10.12, length 28
+11:02:02.972224 aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype ARP (0x0806), length 60: Reply 172.16.10.11 is-at aa:c1:ab:47:1d:fb, length 46
+
+6 packets captured
+6 packets received by filter
+0 packets dropped by kernel

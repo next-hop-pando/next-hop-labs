@@ -1,0 +1,3 @@
+show bgp evpn route-type mac-ip detail
+BGP routing table information for VRF default
+Router identifier 10.13.13.13, local AS number 65103

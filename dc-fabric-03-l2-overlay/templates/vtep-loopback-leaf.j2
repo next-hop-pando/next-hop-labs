@@ -1,0 +1,24 @@
+{#
+  DC Fabric Part 3 - VTEP loopback, leaf role.
+  Loopback1 is the VXLAN source address. Accept every VTEP from the
+  10.255.1.0/24 block, advertise only this leaf's own VTEP (exact /32).
+  VTEP addresses are keyed by Loopback0, same style as Part 1's lists.
+#}
+{% set vteps = {
+     '10.11.11.11/32': '10.255.1.11',
+     '10.12.12.12/32': '10.255.1.12',
+     '10.13.13.13/32': '10.255.1.13' } %}
+{% set vtep = vteps[loopback.ipv4] %}
+interface Loopback1
+   description VTEP
+   ip address {{ vtep }}/32
+!
+ip prefix-list PL-UNDERLAY-IN
+   seq 100 permit 10.255.1.0/24 ge 32
+!
+ip prefix-list PL-UNDERLAY-OUT
+   seq 20 permit {{ vtep }}/32
+!
+router bgp {{ bgp.as }}
+   address-family ipv4
+      network {{ vtep }}/32

@@ -1,0 +1,29 @@
+{#
+  DC Fabric Part 3 - EVPN overlay sessions, leaf role.
+  eBGP from Lo0 to each spine's Lo0, EVPN address family only.
+  RM-EVPN-OUT sends only routes this leaf originated (empty AS_PATH),
+  so a leaf never passes one spine's EVPN routes to the other spine:
+  Part 1's "no transit" rule, for the EVPN address family.
+#}
+{% set spines = [
+     {'name': 'SP-1', 'lo0': '10.1.1.1', 'as': 65001},
+     {'name': 'SP-2', 'lo0': '10.2.2.2', 'as': 65002} ] %}
+ip as-path access-list AS-LOCAL permit ^$ any
+!
+route-map RM-EVPN-OUT permit 10
+   match as-path AS-LOCAL
+!
+router bgp {{ bgp.as }}
+   neighbor EVPN peer group
+   neighbor EVPN update-source Loopback0
+   neighbor EVPN ebgp-multihop 3
+   neighbor EVPN send-community extended
+{% for s in spines %}
+   neighbor {{ s.lo0 }} peer group EVPN
+   neighbor {{ s.lo0 }} remote-as {{ s.as }}
+   neighbor {{ s.lo0 }} description {{ s.name }}-EVPN
+{% endfor %}
+   !
+   address-family evpn
+      neighbor EVPN activate
+      neighbor EVPN route-map RM-EVPN-OUT out

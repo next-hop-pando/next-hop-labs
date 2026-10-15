@@ -1,0 +1,19 @@
+show bgp evpn route-type imet
+BGP routing table information for VRF default
+Router identifier 10.11.11.11, local AS number 65101
+Route status codes: * - valid, > - active, S - Stale, E - ECMP head, e - ECMP
+                    c - Contributing to ECMP, % - Pending best path selection
+Origin codes: i - IGP, e - EGP, ? - incomplete
+AS Path Attributes: Or-ID - Originator ID, C-LST - Cluster List, LL Nexthop - Link Local Nexthop
+
+            Network                Next Hop              Metric  LocPref Weight  Path
+ * >        RD: 10.11.11.11:10 imet 10.255.1.11
+                                   -                     -       -       0       i
+ * >Ec      RD: 10.12.12.12:10 imet 10.255.1.12
+                                   10.255.1.12           -       100     0       65002 65102 i
+ *  ec      RD: 10.12.12.12:10 imet 10.255.1.12
+                                   10.255.1.12           -       100     0       65001 65102 i
+ * >Ec      RD: 10.13.13.13:10 imet 10.255.1.13
+                                   10.255.1.13           -       100     0       65002 65103 i
+ *  ec      RD: 10.13.13.13:10 imet 10.255.1.13
+                                   10.255.1.13           -       100     0       65001 65103 i

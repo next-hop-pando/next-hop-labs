@@ -36,7 +36,7 @@ Requirements: netlab with the containerlab provider, the Cisco IOL image package
 ```
 cd bgp-foundations-03-best-path
 netlab up
-netlab connect r3 "show ip bgp"
-netlab connect host-a "ping -c 3 198.51.100.10"
+netlab connect r3 show ip bgp
+netlab connect host-a ping -c 3 198.51.100.10
 netlab down
 ```

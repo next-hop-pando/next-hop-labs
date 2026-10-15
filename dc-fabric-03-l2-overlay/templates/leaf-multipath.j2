@@ -1,0 +1,10 @@
+{#
+  DC Fabric Part 1 - ECMP on the leaves.
+  Each leaf has two spine uplinks, so two BGP paths can be installed.
+  EOS installs one BGP path by default. multipath-relax is already on
+  by default, so equal-length AS_PATHs through different spine ASNs qualify.
+  Kept separate from the policy template so the before/after ECMP state
+  can be reproduced by removing it from the leaves group.
+#}
+router bgp {{ bgp.as }}
+   maximum-paths 2

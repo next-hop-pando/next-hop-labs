@@ -1,0 +1,10 @@
+show ip bgp 10.255.1.11/32
+BGP routing table information for VRF default
+Router identifier 10.11.11.11, local AS number 65101
+BGP routing table entry for 10.255.1.11/32
+ Paths: 1 available
+  Local
+    - from - (10.11.11.11)
+      Origin IGP, metric -, localpref -, IGP metric -, weight 0, tag 0
+      Received 00:00:34 ago, valid, local, best, redistributed (Connected)
+      Rx SAFI: Unicast

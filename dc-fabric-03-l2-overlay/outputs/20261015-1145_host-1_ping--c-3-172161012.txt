@@ -1,0 +1,9 @@
+ping -c 3 172.16.10.12
+PING 172.16.10.12 (172.16.10.12): 56 data bytes
+64 bytes from 172.16.10.12: seq=0 ttl=64 time=3.512 ms
+64 bytes from 172.16.10.12: seq=1 ttl=64 time=3.199 ms
+64 bytes from 172.16.10.12: seq=2 ttl=64 time=4.620 ms
+
+--- 172.16.10.12 ping statistics ---
+3 packets transmitted, 3 packets received, 0% packet loss
+round-trip min/avg/max = 3.199/3.777/4.620 ms

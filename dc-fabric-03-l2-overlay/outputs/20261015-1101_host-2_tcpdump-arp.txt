@@ -1,0 +1,13 @@
+sudo ip netns exec clab-l2-overlay-host-2 timeout 30 tcpdump -n -e -i eth1 arp
+tcpdump: verbose output suppressed, use -v[v]... for full protocol decode
+listening on eth1, link-type EN10MB (Ethernet), snapshot length 262144 bytes
+11:01:57.890947 aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:01:57.890954 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 28
+11:02:02.431874 aa:c1:ab:47:1d:fb > ff:ff:ff:ff:ff:ff, ethertype ARP (0x0806), length 60: Request who-has 172.16.10.12 tell 172.16.10.11, length 46
+11:02:02.431881 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Reply 172.16.10.12 is-at aa:c1:ab:be:04:fa, length 28
+11:02:02.969312 aa:c1:ab:be:04:fa > aa:c1:ab:47:1d:fb, ethertype ARP (0x0806), length 42: Request who-has 172.16.10.11 tell 172.16.10.12, length 28
+11:02:02.972225 aa:c1:ab:47:1d:fb > aa:c1:ab:be:04:fa, ethertype ARP (0x0806), length 60: Reply 172.16.10.11 is-at aa:c1:ab:47:1d:fb, length 46
+
+6 packets captured
+6 packets received by filter
+0 packets dropped by kernel

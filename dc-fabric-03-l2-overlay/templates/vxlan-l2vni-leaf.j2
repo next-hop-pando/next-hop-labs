@@ -1,0 +1,23 @@
+{#
+  DC Fabric Part 3 - Layer 2 VNI, leaf role.
+  Vxlan1 sources tunnels from Loopback1 and maps VLAN 10 to VNI 10010.
+  The MAC-VRF uses one route target shared by every leaf (10010:10010):
+  with a different ASN on every leaf, auto-derived RTs never match.
+  VLAN 10 is declared here too because LS-2 has no host, so netlab
+  does not create it there.
+#}
+{% set vlan_id = 10 %}
+{% set vni = 10010 %}
+vlan {{ vlan_id }}
+   name tenant
+!
+interface Vxlan1
+   vxlan source-interface Loopback1
+   vxlan udp-port 4789
+   vxlan vlan {{ vlan_id }} vni {{ vni }}
+!
+router bgp {{ bgp.as }}
+   vlan {{ vlan_id }}
+      rd auto
+      route-target both {{ vni }}:{{ vni }}
+      redistribute learned

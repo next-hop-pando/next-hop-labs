@@ -1,0 +1,5 @@
+ip addr show eth1
+72: eth1@if71: <BROADCAST,MULTICAST,UP,LOWER_UP,M-DOWN> mtu 1500 qdisc noqueue state UP 
+    link/ether aa:c1:ab:47:1d:fb brd ff:ff:ff:ff:ff:ff
+    inet 172.16.10.11/24 scope global eth1
+       valid_lft forever preferred_lft forever
